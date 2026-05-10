@@ -5,7 +5,7 @@ Tema projekta je serverska konzolna aplikacija u programskom jeziku C# koja prim
 Primer poziva servera:
 http://localhost:5050/test.jpg
 
-Korišćene tehnologije
+### Korišćene tehnologije
 U projektu su korišćeni:
 C#
 .NET 8.0
@@ -14,7 +14,7 @@ HttpListener
 System.Threading
 System.Drawing.Common
 
-Opis rada aplikacije
+### Opis rada aplikacije
 
 Aplikacija se pokreće kao konzolni program. Nakon pokretanja, server sluša zahteve na adresi:
 http://localhost:5050/
@@ -25,7 +25,7 @@ server iz URL-a uzima naziv fajla test.jpg i traži ga u root folderu.
 Ako slika postoji, server je konvertuje u crno-belu sliku i vraća rezultat browser-u. Ako slika ne postoji, vraća se greška 404 Not Found.
 Aplikacija podržava .jpg, .jpeg i .png slike.
 
-Pokretanje projekta
+### Pokretanje projekta
 Preuzeti ili klonirati repozitorijum.
 Otvoriti projekat u Visual Studio okruženju.
 Pokrenuti projekat kao Console App.
@@ -36,7 +36,7 @@ ili
 http://localhost:5050/test1.png
 Ako je server pokrenut i slika postoji u root folderu, browser prikazuje crno-belu verziju slike.
 
-Struktura projekta
+### Struktura projekta
 Projekat je podeljen na više klasa:
 Program.cs - pokretanje aplikacije i servera
 ImageServer.cs - glavna logika servera
@@ -45,7 +45,7 @@ ImageCache.cs - keširanje obrađenih slika
 ImageProcessor.cs - konverzija slike u crno-belu
 Logger.cs - logovanje rada sistema
 
-Osnovni tok rada aplikacije je:
+### Osnovni tok rada aplikacije je:
 Browser šalje zahtev
         ↓
 Server prima zahtev
@@ -65,7 +65,7 @@ Server ima listener nit koja prima zahteve i ubacuje ih u red. Obradu zahteva vr
 To znači da server može da primi više zahteva, dok se obrada izvršava konkurentno.
 Ako stigne više zahteva nego što trenutno ima slobodnih worker niti, zahtevi čekaju u redu.
 
-Sinhronizacija
+### Sinhronizacija
 Za sinhronizaciju između niti korišćeni su mehanizmi iz System.Threading prostora imena.
 Korišćeno je:
 Thread
@@ -86,19 +86,19 @@ Rezultat dodat u cache: test.jpg
 Cache hit - rezultat preuzet iz cache-a: test.jpg
 Cache expired - rezultat je istekao: test.jpg
 
-Cache stampede zaštita
+### Cache stampede zaštita
 U projektu je rešena situacija kada više klijenata istovremeno zatraži istu sliku koja nije u cache-u.
 U tom slučaju samo jedna nit vrši konverziju slike, dok ostale niti čekaju da rezultat bude spreman.
 Kada prva nit završi obradu i upiše rezultat u cache, ostale niti preuzimaju gotov rezultat iz cache-a.
 Na taj način se sprečava nepotrebno višestruko obrađivanje iste slike.
 
-Logovanje
+### Logovanje
 Aplikacija vodi evidenciju o radu sistema.
 Log poruke se ispisuju u konzoli i upisuju u fajl:
 log.txt
 Logovanje je realizovano na thread-safe način pomoću lock, jer više worker niti može istovremeno da upisuje poruke.
 
-Obrada grešaka
+### Obrada grešaka
 U projektu su obrađene osnovne greške:
 ako korisnik ne unese naziv slike, vraća se 400 Bad Request
 ako slika ne postoji u root folderu, vraća se 404 Not Found
@@ -109,7 +109,7 @@ http://localhost:5050/nepostoji.jpg
 Server tada vraća poruku:
 404 Not Found - slika ne postoji.
 
-Testiranje
+### Testiranje
 Projekat je testiran kroz browser i PowerShell.
 Testirano je:
 pokretanje servera
@@ -135,7 +135,7 @@ Get-Job | Remove-Job
 
 U logu se vidi da više worker niti prima zahteve, ali da se konverzija iste slike izvršava samo jednom.
 
-## Zakljucak
+### Zakljucak
 Ovaj projekat prikazuje primenu konkurentnog programiranja u C# jeziku kroz serversku aplikaciju koja obrađuje slike.
 Kroz projekat su korišćeni red zahteva, worker niti, sinhronizacija, cache memorija, cache stampede zaštita, logovanje i obrada grešaka.
 Aplikacija ispunjava zahteve zadatka jer podržava istovremeni rad sa više zahteva, koristi deljene resurse na thread-safe način i omogućava ponovno korišćenje prethodno obrađenih rezultata kroz cache.
