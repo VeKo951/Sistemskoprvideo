@@ -3,7 +3,6 @@
 Projekat je urađen u okviru predmeta Sistemsko programiranje.
 Tema projekta je serverska konzolna aplikacija u programskom jeziku C# koja prima zahteve od klijenata i vrši konverziju slike iz RGB formata u crno-beli format, odnosno u nijanse sive.
 Primer poziva servera:
-text
 http://localhost:5050/test.jpg
 
 Korišćene tehnologije
@@ -136,7 +135,7 @@ Get-Job | Remove-Job
 
 U logu se vidi da više worker niti prima zahteve, ali da se konverzija iste slike izvršava samo jednom.
 
-
+## Zakljucak
 Ovaj projekat prikazuje primenu konkurentnog programiranja u C# jeziku kroz serversku aplikaciju koja obrađuje slike.
 Kroz projekat su korišćeni red zahteva, worker niti, sinhronizacija, cache memorija, cache stampede zaštita, logovanje i obrada grešaka.
 Aplikacija ispunjava zahteve zadatka jer podržava istovremeni rad sa više zahteva, koristi deljene resurse na thread-safe način i omogućava ponovno korišćenje prethodno obrađenih rezultata kroz cache.
